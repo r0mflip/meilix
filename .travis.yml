@@ -1,56 +1,45 @@
-# This provides us with GCC binary support so we can run bash
 language: generic
-
-# Try to supply the packages from Travis so that when we run build.sh we won't
-# be required to download them again.
 include:
-  - os: linux
-    addons:
-      apt:
-        update: true
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - debootstrap
-          - genisoimage
-          - p7zip-full
-          - squashfs-tools
-          - ubuntu-dev-tools
-          - dpkg-dev
-          - debhelper
-          - fakeroot
-          - devscripts
-
+- os: linux
+  addons:
+    apt:
+      update: true
+      sources:
+      - ubuntu-toolchain-r-test
+      packages:
+      - debootstrap
+      - genisoimage
+      - p7zip-full
+      - squashfs-tools
+      - ubuntu-dev-tools
+      - dpkg-dev
+      - debhelper
+      - fakeroot
+      - devscripts
 sudo: required
-
 git:
   depth: 22
-
 script:
-  - export LC_ALL=en_US.UTF-8
-  - export LANG=en_US.UTF-8
-  - export LANGUAGE=en_US.UTF-8
-  - chmod +x ./build.sh
-  - ./build.sh |& tee log.txt
-
+- export LC_ALL=en_US.UTF-8
+- export LANG=en_US.UTF-8
+- export LANGUAGE=en_US.UTF-8
+- chmod +x ./build.sh
+- "./build.sh |& tee log.txt"
 before_deploy:
-  - export image_name="`echo *.iso`"
-  - cat *.iso > "/home/travis/${image_name}"
-
-
+- export image_name="`echo *.iso`"
+- cat *.iso > "/home/travis/${image_name}"
 deploy:
-  - provider: releases
-    skip_cleanup: true
-    api_key:
-      secure: "nqShrQUvITnBZa6Wl0e9ywnoDSQOR8V3CCgWPJTmfhx1TySUmJIJ6mii8cs/XjTAhJ1IiCCZcyMr2J2bwZOuVWRzvallgtzUp+I8gd+zdzWv12e7OkiVBQzUt7qVgN+EAGE7mq5BS5UxiE3zWJ9B9/ODgyhmILaJ5Vdf1z7+HqIIMd7zihui7VeNWkzLX1sHcvQkgMBbLZhB1zJroW/+ufmAJSO9E6gmQmUd2++hvD1TzyrN8YQOBNLzPsLhixKwYxsZVnScv4ZYxYgBaF6EVTyLownzU4wNLVVmbYuRzuj5vZrXYeSYCdnj6Exg5niXRuPVFoQFZL0Hk8/mGqVxpwm1DAlRP2tvoPdaEHr5yLXM1TBio2qps98yUJogPyQHpBV8WtI8HKAy1MxomM6/2yTL9qMupzzGP4XmaCF5UL5FxAe5M//LWswbfhjIR45wKRGvkOPYwXsSyqdV14Q2tcn7iRpJxm39WJc8/4ryL+yNYKMqMkKiAb3gXcq15oNoirO8fzHev7I1XaqKxcBo/D09EboP59vjfcv/7I7UKKTIjaKZwkeePjZ/iXaYKBtQdEJIEsETZ0F8syZ3mKdXaw+GMJicQT//77alHQyfDRiDVoJ73FCREYlIlsZqSPzgHjpJzgtYHjCN9BAb7fRunis0WVgQd24zvvpaXnF5L6Y="
-    file_glob: true # http://stackoverflow.com/a/28579635/1320237
-    file: "/home/travis/${image_name}"
-    on:
-      all_branches: true
-
+- provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: "IVKH6H5uu8m991p4CIGPjnkvcyHCRCUdQBHE2g0dfbqyZ2A6NSKPRM9l8KJ9w6RG1Z2ENI+ebgkO5LmWqJk4PQ7m5xKWQwvlCB6Sy+kNDh9w3G7IujF3g4P2EBhh7uOXNkOO81X+GL+xNMYN5x3Za5mGzcv+azDSi+e4jO13eNFwlwIPyHv54mwquisDai/IrcLFhk/C09fBeYcOIQFmxoz1GhoBwHKh099UlMYP5iNVP7qKzJMYrlzUrycxUyYtnTubsGEFIgpOSAIZXqZ/K6ghBgMfFOCnO2gGw0byac8snMAGvL9HyTit63c/8EHsrsfQ2JxLyKqf5WVvb7zickZPqpsX9Hma520PF5amMPLxa7rSHlGDhqQgvE/8rj/9IqKl4HnSJ3RUQfclOmv6Mjq7WlXj2w0U7UTzsvwRzeCMUCLHMb5/UOxIGA4I3P2nwLV8NHGxMV6JJT9wtp18nw0Cj+Cc+3oIeYFKlMFFxQKvitenNknmHxMtlYIZLItd6VYJuvyPeF91DOTnHe5NjieOPcmKnG22f/03y3JVXyiB+z344xWY3Trf62oa+RiL5EW4jG/8T7i5hkmaPQI4kE7xx78MziquFP6+BUdNZ0Mvjd38jRVkYVj5TzCLuZYuMNbu2cRjgYKUW84e2BN9xfvN7IzkrGspiHDObWzE50s="
+  file_glob: true
+  file: "/home/travis/${image_name}"
+  on:
+    all_branches: true
 after_deploy:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/releases_maintainer.sh; fi'
-  - cd scripts && ./mail.py
-  
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/releases_maintainer.sh;
+  fi
+- cd scripts && ./mail.py
 after_failure:
-  - cd scripts && ./mail-fail.py
+- cd scripts && ./mail-fail.py
