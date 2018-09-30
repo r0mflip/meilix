@@ -94,7 +94,7 @@ sudo mount -t proc none chroot/proc
 
 #Work *inside* the chroot
 chmod +x ./scripts/chroot.sh
-./scripts/chroot.sh
+./scripts/chroot.sh $C_UNAME $C_HNAME
 
 #Section chroot finished
 ###############################################################

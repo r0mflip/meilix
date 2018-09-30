@@ -17,7 +17,7 @@ ln -s /bin/true /sbin/initctl
 apt-get install wget apt-transport-https
 
 # Add key for third party repo
-apt-key update 
+apt-key update
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1098513
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1EBD81D9
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 91E7EE5E
@@ -37,33 +37,33 @@ apt-get -qq -y --purge install ubuntu-standard casper lupin-casper \
   laptop-detect os-prober linux-generic
 
 #see if this works, needs refactoring
-sed -i 's\USERNAME=casper\USERNAME=hotelos\g' /usr/share/initramfs-tools/scripts/casper
+sed -i 's\USERNAME=casper\USERNAME=${1:-"hotelos"}\g' /usr/share/initramfs-tools/scripts/casper
 
 # Install meilix metapackage
 dpkg -i meilix-metapackage*.deb
 apt-get install -f
 
 # Install base packages
-apt-get -qq -y install xorg  
+apt-get -qq -y install xorg
 apt-get -qq -y install sddm
 # apt-get -qq -y install lightdm
 #apt-get -qq -y install xserver-xorg-video-intel
 
 
 
-apt-get -qq -y --allow-unauthenticated install lxqt openbox 
-apt-get -qq -y --allow-unauthenticated install pcmanfm-qt 
+apt-get -qq -y --allow-unauthenticated install lxqt openbox
+apt-get -qq -y --allow-unauthenticated install pcmanfm-qt
 apt-get -qq -y --allow-unauthenticated install lxqt-metapackage
-apt-get -qq -y --allow-unauthenticated install lxqt-admin lxqt-common lxqt-config lxqt-globalkeys lxqt-notificationd 
+apt-get -qq -y --allow-unauthenticated install lxqt-admin lxqt-common lxqt-config lxqt-globalkeys lxqt-notificationd
 apt-get -qq -y --allow-unauthenticated install lxqt-panel lxqt-policykit lxqt-powermanagement lxqt-qtplugin \
 apt-get -qq -y --allow-unauthenticated install lxqt-runner lxqt-session lxqt-sudo
 
 
 #sudo apt-get install lightdm-gtk-greeter
-# set 
-#dpkg-reconfigure lightdm 
+# set
+#dpkg-reconfigure lightdm
 
-#/usr/lib/lightdm/lightdm-set-defaults --autologin hotelos 
+#/usr/lib/lightdm/lightdm-set-defaults --autologin hotelos
 
 #apt-get -qq -y install lubuntu-desktop
 
@@ -71,9 +71,9 @@ apt-get -qq -y --allow-unauthenticated install lxqt-runner lxqt-session lxqt-sud
 apt-get -qq -y install ubiquity ubiquity-casper ubiquity-slideshow-ubuntu ubiquity-frontend-kde
 
 
-# Plymouth theme 
+# Plymouth theme
 apt-get -qq -y install plymouth-label #dependency of our theme
-dpkg -i plymouth-meilix-logo_1.0-1_all.deb 
+dpkg -i plymouth-meilix-logo_1.0-1_all.deb
 dpkg -i plymouth-meilix-text_1.0-1_all.deb
 apt-get install -f
 
@@ -127,7 +127,7 @@ if [ ${arch} == 'amd64' ]; then
   wget https://go.skype.com/skypeforlinux-64.deb
   dpkg -i skypeforlinux-64.deb
 else
-  # 32-bit 
+  # 32-bit
   dpkg -i skype-ubuntu_4.1.0.20-1_i386.deb
 fi
 
@@ -223,7 +223,7 @@ echo uuid.conf
 cat conf/uuid.conf
 echo conf.d
 cat conf/conf.d
-ls /usr/share/xsessions/ 
+ls /usr/share/xsessions/
 echo passphrase section
 ls /usr/share/initramfs-tools/scripts/casper
 ls /usr/share/initramfs-tools/scripts/casper-bottom/
