@@ -3,6 +3,13 @@
 # Author: Team
 # Based on HOWTO information by Julien Lavergne <gilir@ubuntu.com>
 
+
+## only for test
+echo $C_UNAME
+echo $C_HNAME
+exit
+
+
 set -eu				# Be strict
 
 export LC_ALL=en_US.UTF-8
@@ -19,7 +26,7 @@ mirror=${2:-"http://archive.ubuntu.com/ubuntu/"}
 # Set of GNOME language packs to install.
 #   Use '\*' for all langs, 'en' for English.
 # Install language with the most popcontt
-gnomelanguage=${3:-'{en}'}	
+gnomelanguage=${3:-'{en}'}
 # Release name, used by debootstrap.  Examples: lucid, maverick, natty.
 release=${4:-xenial}
 
@@ -41,7 +48,7 @@ do
   fi
 done
 
-sudo rm -R 	db 
+sudo rm -R 	db
 sudo rm -R 	dists/trusty
 # Make sure we have the tools we need installed
 sudo apt-get clean
@@ -150,7 +157,7 @@ rm /tmp/manifest.$$
 REMOVE='gparted ubiquity ubiquity-frontend-gtk casper live-initramfs user-setup discover1
  xresprobe libdebian-installer4 pptp-linux ndiswrapper-utils-1.9
  ndisgtk linux-wlan-ng libatm1 setserial b43-fwcutter uterm
- linux-headers-generic indicator-session indicator-application' 
+ linux-headers-generic indicator-session indicator-application'
 for i in $REMOVE
 do
     sudo sed -i "/${i}/d" image/casper/filesystem.manifest-desktop
