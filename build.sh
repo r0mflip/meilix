@@ -3,12 +3,8 @@
 # Author: Team
 # Based on HOWTO information by Julien Lavergne <gilir@ubuntu.com>
 
-
-## only for test
-echo $C_UNAME
 echo $C_HNAME
-exit
-
+echo $C_UNAME
 
 set -eu				# Be strict
 
