@@ -29,14 +29,13 @@ before_deploy:
 - export image_name="`echo *.iso`"
 - cat *.iso > "/home/travis/${image_name}"
 deploy:
-- provider: releases
-  skip_cleanup: true
+  provider: releases
   api_key:
-    secure: "IVKH6H5uu8m991p4CIGPjnkvcyHCRCUdQBHE2g0dfbqyZ2A6NSKPRM9l8KJ9w6RG1Z2ENI+ebgkO5LmWqJk4PQ7m5xKWQwvlCB6Sy+kNDh9w3G7IujF3g4P2EBhh7uOXNkOO81X+GL+xNMYN5x3Za5mGzcv+azDSi+e4jO13eNFwlwIPyHv54mwquisDai/IrcLFhk/C09fBeYcOIQFmxoz1GhoBwHKh099UlMYP5iNVP7qKzJMYrlzUrycxUyYtnTubsGEFIgpOSAIZXqZ/K6ghBgMfFOCnO2gGw0byac8snMAGvL9HyTit63c/8EHsrsfQ2JxLyKqf5WVvb7zickZPqpsX9Hma520PF5amMPLxa7rSHlGDhqQgvE/8rj/9IqKl4HnSJ3RUQfclOmv6Mjq7WlXj2w0U7UTzsvwRzeCMUCLHMb5/UOxIGA4I3P2nwLV8NHGxMV6JJT9wtp18nw0Cj+Cc+3oIeYFKlMFFxQKvitenNknmHxMtlYIZLItd6VYJuvyPeF91DOTnHe5NjieOPcmKnG22f/03y3JVXyiB+z344xWY3Trf62oa+RiL5EW4jG/8T7i5hkmaPQI4kE7xx78MziquFP6+BUdNZ0Mvjd38jRVkYVj5TzCLuZYuMNbu2cRjgYKUW84e2BN9xfvN7IzkrGspiHDObWzE50s="
-  file_glob: true
+    secure: LiXcYS3mZzLYFWU6AtagtJTGmuH56pVspEsVFgLJ3MYK+0l2Rz0SkVxTc6CJkBNGOmLC03Q0j5boCejTQ49L+FGg19G4HLrHwUJgHRO2gawxkrB0Sa5+3Dy7RACpMNrJ1izS9oz2DmpTGAoSv7ONiqDSO2SRA6FOHl3h2E3zww8i/jQBoz5+CGWXGmzAZ22hEnLL8J7cEcPffT2xadds2GbuBgsT3+agPPI25fS38f/hlkaiLivxpIOvMIwyve0zASk2t+CZG4x49qzBxYKSSvR4vZHdT3QJDroMwiytyPBN1MAFn46h4SpdvB/BvZ7DUM+IBsem2beCiFV4Rbyq9HQB2zEFZSCUAw9CwV/u/NKz6NjE/FUnrOhcRV02PIE4yLBTNFnweSQIrgLWtA9SIJ177sBOHC+Ai88Qyh7Deip0glyVDFH40+V8QFI+mmB++46OdzHuIhPPzz2goq6MaAAdGqKVGKJUACgzJZYS+MWKm3T6GBxD1c3RURrxhsGn9VaJrylFZvMsZqIoeL3gphmnnfhD5WphL1R+4BNxUJL3EwNIG+9Ejyym8tigSU0or50/FsknlBcnxanAdnW/MECUYt1tooc546h2A9wWyTRl4cPDkAtuQN34tuGPyZcCpOaXcdg6u0a5ycUw/xybNeaKXRqQlgaP6Lhc0FfA1uw=
   file: "/home/travis/${image_name}"
+  skip_cleanup: true
   on:
-    all_branches: true
+    repo: r0mflip/meilix
 after_deploy:
 - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/releases_maintainer.sh;
   fi
